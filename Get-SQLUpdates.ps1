@@ -41,9 +41,9 @@ Function Get-SQLPatches {
 				| Get-ItemProperty `
 				| Sort-Object -Property DisplayName `
 				| Select-Object -Property DisplayName, DisplayVersion, InstallDate `
-				| Where-Object {
-						($_.DisplayName -like "Hotfix*SQL*") 
-					-or ($_.DisplayName -like "Service Pack*SQL*")
+				| Where-Object { `
+						($_.DisplayName -like "Hotfix*SQL*") `
+					-or ($_.DisplayName -like "Service Pack*SQL*") `
 				}
 				
 				foreach ($Patch in $Patches) {
