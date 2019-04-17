@@ -81,8 +81,8 @@ cd c:\Monitoring
 ##Generate Report
 Get-SQLPatches -ComputerName $Servers |ft -autosize -wrap |out-file $file
 
-##Wait 60 Seconds
-Start-Sleep -s 60 
+##Wait 30 Seconds
+Start-Sleep -s 30 
 
 ##Send Email Report
 $smtpServer = "smtp.fleitasarts.com"
@@ -91,7 +91,7 @@ $msg = new-object Net.Mail.MailMessage
 $msg.From = "hiram@fleitasarts.com"
 $msg.To.Add("hiram@fleitasarts.com")
 #$msg.To.Add("audit@fleitasarts.com")
-$msg.Subject = "SQL Server Patches"
+$msg.Subject = "SQL Server Patches Installed"
 $msg.IsBodyHtml = $True 
 $msg.Body = "See attached report."
 $msg.Attachments.Add($att)
