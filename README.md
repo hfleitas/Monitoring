@@ -27,7 +27,7 @@ Get-SQLPatches -ComputerName (Get-Content C:\Monitoring\Servers.txt)
 ~~~
 
 ### Author
-Created By: Hiram Fleitas aka. DBA2.o [@hiramfleitas](http://twitter.com/hiramfleitas)
+Created By: Hiram Fleitas aka. dba2.o [@hiramfleitas](http://twitter.com/hiramfleitas)
 Modified: 4/17/2019 05:09:35 PM  
 Version 1.0
 Commissioned Credit: Anthony Vaquer (Microsoft)
