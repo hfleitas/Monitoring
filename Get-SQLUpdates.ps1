@@ -87,12 +87,12 @@ Get-SQLPatches -ComputerName $Servers |ft -autosize -wrap |out-file $file
 Start-Sleep -s 5 
 
 ##Send Email Report
-$smtpServer = "smtp.fleitasarts.com"
+$smtpServer = "smtp.yourdomain.com"
 $att = new-object Net.Mail.Attachment($file)
 $msg = new-object Net.Mail.MailMessage
-$msg.From = "hiram@fleitasarts.com"
-$msg.To.Add("hiram@fleitasarts.com")
-#$msg.To.Add("audit@fleitasarts.com")
+$msg.From = "you@yourdomain.com"
+$msg.To.Add("you@yourdomain.com")
+#$msg.To.Add("group@yourdomain.com")
 $msg.Subject = "SQL Server Updates Installed"
 $msg.IsBodyHtml = $True 
 $msg.Body = "See attached report."
