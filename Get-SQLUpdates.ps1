@@ -91,7 +91,7 @@ $msg = new-object Net.Mail.MailMessage
 $msg.From = "hiram@fleitasarts.com"
 $msg.To.Add("hiram@fleitasarts.com")
 #$msg.To.Add("audit@fleitasarts.com")
-$msg.Subject = "SQL Server Patches Installed"
+$msg.Subject = "SQL Server Updates Installed"
 $msg.IsBodyHtml = $True 
 $msg.Body = "See attached report."
 $msg.Attachments.Add($att)
