@@ -83,8 +83,8 @@ cd c:\Monitoring
 ##Generate Report
 Get-SQLPatches -ComputerName $Servers |ft -autosize -wrap |out-file $file
 
-##Wait 30 Seconds
-Start-Sleep -s 30 
+##Wait 5 Seconds
+Start-Sleep -s 5 
 
 ##Send Email Report
 $smtpServer = "smtp.fleitasarts.com"
