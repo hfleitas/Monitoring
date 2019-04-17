@@ -37,13 +37,15 @@ Function Get-SQLPatches {
             try {
 			    $WMI_OS = Get-WmiObject -Class Win32_OperatingSystem -Property BuildNumber, CSName -ComputerName $Computer -ErrorAction Stop
                 
-				$Patches = Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall `
-				| Get-ItemProperty `
-				| Sort-Object -Property DisplayName `
-				| Select-Object -Property DisplayName, DisplayVersion, InstallDate `
-				| Where-Object { `
-						($_.DisplayName -like "Hotfix*SQL*") `
-					-or ($_.DisplayName -like "Service Pack*SQL*") `
+				$Patches = Invoke-command -computer $Computer {
+					Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall `
+					| Get-ItemProperty `
+					| Sort-Object -Property DisplayName `
+					| Select-Object -Property DisplayName, DisplayVersion, InstallDate `
+					| Where-Object { `
+							($_.DisplayName -like "Hotfix*SQL*") `
+						-or ($_.DisplayName -like "Service Pack*SQL*") `
+					}
 				}
 				
 				foreach ($Patch in $Patches) {
