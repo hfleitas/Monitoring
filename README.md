@@ -28,6 +28,7 @@ Get-SQLPatches -ComputerName (Get-Content C:\Monitoring\Servers.txt)
 
 ### Task Scheduler
 Info to run it automatically via the Windows Task Scheduler.
+
 **Argument:** `-nologo -executionpolicy bypass -File "C:\Monitoring\Get-SQLPatches.ps1"`
 
 ![Action](/TaskSchedulerEditActionPowerShell.png?raw=true "Action")
