@@ -40,7 +40,7 @@ Function Get-SQLPatches {
 				$Patches = Invoke-command -computer $Computer {
 					Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall `
 					| Get-ItemProperty `
-					| Sort-Object -Property DisplayName `
+					| Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} `
 					| Select-Object -Property DisplayName, DisplayVersion, InstallDate `
 					| Where-Object { `
 							($_.DisplayName -like "Hotfix*SQL*") `
@@ -50,7 +50,7 @@ Function Get-SQLPatches {
 				
 				foreach ($Patch in $Patches) {
 					## Creating Custom PSObject and Select-Object Splat
-					$SelectSplat = @{
+					$List = @{
 						Property=(
 							'Computer',
 							'DisplayName',
@@ -62,7 +62,7 @@ Function Get-SQLPatches {
 						DisplayName=$Patch.DisplayName
 						DisplayVersion=$Patch.DisplayVersion
 						InstallDate=$Patch.InstallDate
-					} | Select-Object @SelectSplat
+					} | Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} | Select-Object @List
 					} 
 				}
 				
