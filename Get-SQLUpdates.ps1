@@ -77,14 +77,21 @@ Function Get-SQLPatches {
 
 $Servers = Get-Content C:\Monitoring\Servers.txt
 $file = "C:\Monitoring\SQLPatches.txt"
+$Csv = "C:\Monitoring\SQLPatches.csv"
+$Type = "csv" #or txt
 c:
 cd c:\Monitoring
 
 ##Generate Report
-Get-SQLPatches -ComputerName $Servers |ft -autosize -wrap |out-file $file
+if ($Type -eq "csv") {
+	$file = $Csv
+	Get-SQLPatches -ComputerName $Servers | Export-CSV -LiteralPath $file -Force -NoTypeInformation
+} else 	{
+	Get-SQLPatches -ComputerName $Servers |ft -autosize -wrap | out-file $file
+}
 
 ##Wait 5 Seconds
-Start-Sleep -s 5 
+Start-Sleep -s 5
 
 ##Send Email Report
 $smtpServer = "smtp.yourdomain.com"
