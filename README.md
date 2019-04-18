@@ -26,6 +26,13 @@ Gets the SQL Server patches from a list of computers in C:\Monitoring\Servers.tx
 Get-SQLPatches -ComputerName (Get-Content C:\Monitoring\Servers.txt)
 ~~~
 
+### Task Scheduler
+Info to run it automatically via the Windows Task Scheduler.
+Argument: -nologo -executionpolicy bypass -File "C:\Monitoring\Get-SQLPatches.ps1"
+![Action](/TaskSchedulerEditActionPowerShell.png?raw=true "Action")
+![Schedule](/TaskSchedulerScheduleMonthly3rdMonday.png?raw=true "Schedule")
+![Schedule](/TaskSchedulerGeneralPowerShell.png?raw=true "Schedule")
+
 ### Author
 Created By: Hiram Fleitas aka. dba2.o [@hiramfleitas](http://twitter.com/hiramfleitas)
 Modified: 4/17/2019 05:09:35 PM  
