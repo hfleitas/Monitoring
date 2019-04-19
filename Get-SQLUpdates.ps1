@@ -57,7 +57,7 @@ function Get-SQLPatches {
 				| Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} `
 				| Select-Object -Property DisplayName, DisplayVersion, InstallDate `
 				| Where-Object { `
-						($_.DisplayName -like "Hotfix*SQL*") `
+					    ($_.DisplayName -like "Hotfix*SQL*") `
 					-or ($_.DisplayName -like "Service Pack*SQL*") `
 				}
 			}
@@ -94,12 +94,12 @@ function Get-SQLPatches {
 					)
 				}
 				New-Object -TypeName PSObject -Property @{
-					Computer		= $WMI_OS.CSName
-					DisplayName		= $Patch.DisplayName
-					InstallDate		= $Patch.InstallDate
+					Computer	= $WMI_OS.CSName
+					DisplayName	= $Patch.DisplayName
+					InstallDate	= $Patch.InstallDate
 					DisplayVersion	= $Patch.DisplayVersion
 					InstanceVersion	= $level | select-object -first 1
-					Instance		= $level | select-object -last 1
+					Instance	= $level | select-object -last 1
 				} | Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} | Select-Object @List
 			}
 		}
@@ -107,6 +107,7 @@ function Get-SQLPatches {
     }
     end{}
 }
+
 
 $local
 $Servers = Get-Content C:\Monitoring\Servers.txt
