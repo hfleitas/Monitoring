@@ -42,4 +42,4 @@ Info to run it automatically via the Windows Task Scheduler.
 Created By: Hiram Fleitas aka. dba2.o [@hiramfleitas](http://twitter.com/hiramfleitas)
 Modified: 4/17/2019 05:09:35 PM  
 Version 1.0
-Commissioned Credit: Anthony Vaquer (Microsoft)
+Commissioned Credit: Anthony Vaquer (Microsoft: Premier Field Engineer - Data & AI)
