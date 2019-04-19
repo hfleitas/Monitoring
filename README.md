@@ -26,6 +26,9 @@ Gets the SQL Server patches from a list of computers in C:\Monitoring\Servers.tx
 Get-SQLPatches -ComputerName (Get-Content C:\Monitoring\Servers.txt)
 ~~~
 
+### Exmaple Output
+![Example CSV](/KeyPatchLevel-Good.jpg?raw=true "Example CSV")
+
 ### Task Scheduler
 Info to run it automatically via the Windows Task Scheduler.
 
