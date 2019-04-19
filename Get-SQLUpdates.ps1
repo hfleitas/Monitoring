@@ -4,8 +4,8 @@ function Get-SQLPatches {
             Retrives a historical list of all SQL Patches (CUs, Service Packs & Hot-fixes) installed on a Computer.
 
         .DESCRIPTION
-			Uses WMI to retrieve a list of the Win32_OperatingSystem BuildNumber, CSName.
-			Uses Get-ChildItem to retrieve a list of DisplayName, DisplayVersion, InstallDate from path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall.
+            Uses WMI to retrieve a list of the Win32_OperatingSystem BuildNumber, CSName.
+            Uses Get-ChildItem to retrieve a list of DisplayName, DisplayVersion, InstallDate from path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall.
 
         .PARAMETER ComputerName
             Allows you to specify a comma separated list of servers to query. Default: localhost.
@@ -29,8 +29,8 @@ function Get-SQLPatches {
         .EXAMPLE
             PS C:\> Get-SQLPatches -ComputerName (Get-Content C:\Monitoring\Servers.txt)
 
-			Gets the SQL Server patches from a list of computers in C:\Monitoring\Servers.txt.
-			
+            Gets the SQL Server patches from a list of computers in C:\Monitoring\Servers.txt.
+
     #>
     [CmdletBinding()]
     param (
