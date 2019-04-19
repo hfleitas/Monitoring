@@ -45,24 +45,12 @@ function Get-SQLPatches {
         foreach ($Computer in $ComputerName) {
             try {
 			    $WMI_OS = Get-WmiObject -Class Win32_OperatingSystem -Property BuildNumber, CSName -ComputerName $Computer -ErrorAction Stop
-				
-				$inst = Invoke-Command -computer $Computer {
-					(get-itemproperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
-				}
-				
-				foreach ($i in $inst) {	
-				   $p = Invoke-Command -computer $Computer -ArgumentList $i {
-				   param($i)
-					   (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL').$i
-				    "{0}" -f $using:i
-				   }
-					$ver = Invoke-Command -computer $Computer -ArgumentList $p {
-					param($p)
-						(Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$p\Setup").Version
-					"{0}" -f $using:p
-					}
-				}
-				
+			}
+			catch [Exception] {
+				Write-Output "$computer $($_.Exception.Message)"
+			}
+			
+			try {
 				$Patches = Invoke-command -computer $Computer {
 					Get-ChildItem -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall `
 					| Get-ItemProperty `
@@ -73,27 +61,52 @@ function Get-SQLPatches {
 						-or ($_.DisplayName -like "Service Pack*SQL*") `
 					}
 				}
-				
-				foreach ($Patch in $Patches) {
-					$List = @{
-						Property=(
-							'Computer',
-							'DisplayName',
-							'InstallDate',
-							'DisplayVersion',
-							'InstanceVersion'
-						)
-					}
-					New-Object -TypeName PSObject -Property @{
-						Computer		= $WMI_OS.CSName
-						DisplayName		= $Patch.DisplayName
-						InstallDate		= $Patch.InstallDate
-						DisplayVersion	= $Patch.DisplayVersion
-						InstanceVersion	= $ver
-					} | Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} | Select-Object @List
-				}
-			} catch [Exception] {
+			}
+			catch [Exception] {
 				Write-Output "$computer $($_.Exception.Message)"
+			}
+			
+			$inst = Invoke-Command -computer $Computer {
+				(get-itemproperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server').InstalledInstances
+			}
+			
+			foreach ($i in $inst) {	
+				$p = Invoke-Command -computer $Computer -ArgumentList $i {
+				param($i)
+				   (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\Instance Names\SQL').$i
+				"{0}" -f $using:i
+				}
+				$ver = Invoke-Command -computer $Computer -ArgumentList $p {
+				param($p)
+					(Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\$p\Setup").Version
+				"{0}" -f $using:p
+				}
+				
+				foreach ($v in $ver) {
+					$insVer = $v | select-object -first 1
+					$insNam = $v | select-object -last 1
+			
+					foreach ($Patch in $Patches) {
+						$List = @{
+							Property=(
+								'Computer',
+								'DisplayName',
+								'InstallDate',
+								'DisplayVersion',
+								'InstanceVersion',
+								'Instance'
+							)
+						}
+						New-Object -TypeName PSObject -Property @{
+							Computer		= $WMI_OS.CSName
+							DisplayName		= $Patch.DisplayName
+							InstallDate		= $Patch.InstallDate
+							DisplayVersion	= $Patch.DisplayVersion
+							InstanceVersion	= $insVer 
+							Instance		= $insNam 
+						} | Sort-Object -Property @{Expression = "InstallDate"; Descending = $True} | Select-Object @List
+					}
+				}
 			}
         }
     }
