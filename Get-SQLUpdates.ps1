@@ -108,8 +108,6 @@ function Get-SQLPatches {
     end{}
 }
 
-
-$local
 $Servers = Get-Content C:\Monitoring\Servers.txt
 $file = "C:\Monitoring\SQLPatches.txt"
 $Csv = "C:\Monitoring\SQLPatches.csv"
