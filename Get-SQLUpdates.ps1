@@ -11,7 +11,7 @@ function Get-SQLPatches {
             Allows you to specify a comma separated list of servers to query. Default: localhost.
 
         .NOTES
-            Author: Hiram Fleitas, http://twitter.com/hiramfleitas, http://fleitasarts.com
+            Author: Hiram Fleitas, http://twitter.com/hiramfleitas
             Tags: Updates, Patches
 
             Website: http://fleitasarts.com
